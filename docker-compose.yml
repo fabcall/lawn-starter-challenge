@@ -1,0 +1,57 @@
+services:
+  redis:
+    image: redis:alpine
+    container_name: starwars-backend-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: starwars-backend-api
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SWAPI_BASE_URL=https://swapi.dev/api
+      - SWAPI_TIMEOUT=10000
+      - CORS_ORIGIN=http://localhost
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: starwars-frontend
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - app-network
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

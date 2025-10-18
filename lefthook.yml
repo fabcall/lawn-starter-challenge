@@ -1,0 +1,38 @@
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "**/*.{ts,tsx,js,jsx,json,md,yml,yaml}"
+      run: npx prettier --write {staged_files} && git add {staged_files}
+      stage_fixed: true
+    
+    lint-backend:
+      glob: "backend/**/*.{ts,js}"
+      run: cd backend && npm run lint -- --fix
+      stage_fixed: true
+
+    lint-frontend:
+      glob: "frontend/**/*.{ts,tsx,js,jsx}"
+      run: cd frontend && npm run lint -- --fix
+      stage_fixed: true
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit {1}
+
+pre-push:
+  parallel: true
+  commands:
+    # # Testes (initially disabled)
+    # test-backend:
+    #   run: cd backend && npm test
+      
+    # test-frontend:
+    #   run: cd frontend && npm test
+      
+    build-backend:
+      run: cd backend && npm run build
+
+    build-frontend:
+      run: cd frontend && npm run build

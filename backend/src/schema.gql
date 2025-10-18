@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Character {
+  birth_year: String!
+  created: String!
+  edited: String!
+  eye_color: String!
+  films: [Film!]!
+  gender: String!
+  hair_color: String!
+  height: String!
+  homeworld: String!
+  id: String!
+  mass: String!
+  name: String!
+  skin_color: String!
+  species: [String!]!
+  starships: [String!]!
+  url: String!
+  vehicles: [String!]!
+}
+
+type CharacterResponse {
+  count: Int!
+  next: String
+  previous: String
+  results: [Character!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Film {
+  characters: [Character!]!
+  created: String!
+  director: String!
+  edited: String!
+  episode_id: Int!
+  id: String!
+  opening_crawl: String!
+  planets: [String!]!
+  producer: String!
+  release_date: String!
+  species: [String!]!
+  starships: [String!]!
+  title: String!
+  url: String!
+  vehicles: [String!]!
+}
+
+type FilmsResponse {
+  count: Int!
+  next: String
+  previous: String
+  results: [Film!]!
+}
+
+type HourStatistic {
+  count: Int!
+  hour: Int!
+  percentage: Float!
+}
+
+type Planet {
+  climate: String!
+  created: String!
+  diameter: String!
+  edited: String!
+  films: [String!]!
+  gravity: String!
+  id: String!
+  name: String!
+  orbital_period: String!
+  population: String!
+  residents: [String!]!
+  rotation_period: String!
+  surface_water: String!
+  terrain: String!
+  url: String!
+}
+
+type PlanetsResponse {
+  count: Int!
+  next: String
+  previous: String
+  results: [Planet!]!
+}
+
+type Query {
+  character(id: String!): Character!
+  characters(page: Int! = 1, search: String): CharacterResponse!
+  film(id: String!): Film!
+  films(page: Int! = 1, search: String): FilmsResponse!
+  planet(id: String!): Planet!
+  planets(page: Int! = 1, search: String): PlanetsResponse!
+  starship(id: String!): Starship!
+  starships(page: Int! = 1, search: String): StarshipsResponse!
+  statistics: Statistics!
+}
+
+type Starship {
+  cargo_capacity: String!
+  consumables: String!
+  cost_in_credits: String!
+  created: String!
+  crew: String!
+  edited: String!
+  films: [String!]!
+  hyperdrive_rating: String!
+  id: String!
+  length: String!
+  manufacturer: String!
+  max_atmosphering_speed: String!
+  mglt: String
+  model: String!
+  name: String!
+  passengers: String!
+  pilots: [String!]!
+  starship_class: String!
+  url: String!
+}
+
+type StarshipsResponse {
+  count: Int!
+  next: String
+  previous: String
+  results: [Starship!]!
+}
+
+type Statistics {
+  averageResponseTime: Float!
+  hourlyDistribution: [HourStatistic!]!
+  lastUpdated: DateTime!
+  mostPopularHour: Int!
+  topQueries: [TopQuery!]!
+  totalQueries: Int!
+}
+
+type TopQuery {
+  count: Int!
+  percentage: Float!
+  query: String!
+}

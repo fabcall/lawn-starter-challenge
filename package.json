@@ -1,0 +1,24 @@
+{
+  "name": "starwars-universe-explorer",
+  "private": true,
+  "scripts": {
+    "commit": "cz",
+    "prepare": "lefthook install",
+    "lint": "npm run lint --workspaces",
+    "test": "npm test --workspaces",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "lefthook": "^1.5.5",
+    "prettier": "^3.6.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
